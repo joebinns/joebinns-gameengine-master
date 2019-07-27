@@ -15,7 +15,8 @@ import org.lwjgl.BufferUtils;
 import static org.lwjgl.glfw.GLFW.glfwGetTime;
 
 
-public class Renderer {
+// CHANGE FILE NAME TO Renderer AND CLASS NAME TO Renderer TO MAKE IT WORK
+public class RendererOld {
 
     /**
      * Field of View in Radians

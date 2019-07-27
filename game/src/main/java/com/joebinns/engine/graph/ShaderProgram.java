@@ -6,6 +6,7 @@ import java.util.Map;
 import org.joml.Matrix4f;
 import static org.lwjgl.opengl.GL20.*;
 import org.lwjgl.system.MemoryStack;
+import static org.lwjgl.opengl.GL43.GL_COMPUTE_SHADER;
 
 public class ShaderProgram {
 
@@ -15,6 +16,8 @@ public class ShaderProgram {
 
     private int fragmentShaderId;
 
+    public int computeShaderId;
+
     private final Map<String, Integer> uniforms;
 
     public ShaderProgram() throws Exception {
@@ -22,6 +25,7 @@ public class ShaderProgram {
         if (programId == 0) {
             throw new Exception("Could not create Shader");
         }
+
         uniforms = new HashMap<>();
     }
 
@@ -46,12 +50,20 @@ public class ShaderProgram {
         glUniform1i(uniforms.get(uniformName), value);
     }
 
+    public void setUniform(String uniformName, float value) {
+        glUniform1f(uniforms.get(uniformName), value);
+    }
+
     public void createVertexShader(String shaderCode) throws Exception {
         vertexShaderId = createShader(shaderCode, GL_VERTEX_SHADER);
     }
 
     public void createFragmentShader(String shaderCode) throws Exception {
         fragmentShaderId = createShader(shaderCode, GL_FRAGMENT_SHADER);
+    }
+
+    public void createComputeShader(String shaderCode) throws Exception {
+        computeShaderId = createShader(shaderCode, GL_COMPUTE_SHADER);
     }
 
     protected int createShader(String shaderCode, int shaderType) throws Exception {
@@ -83,6 +95,9 @@ public class ShaderProgram {
         }
         if (fragmentShaderId != 0) {
             glDetachShader(programId, fragmentShaderId);
+        }
+        if (computeShaderId != 0) {
+            glDetachShader(programId, computeShaderId);
         }
 
         glValidateProgram(programId);

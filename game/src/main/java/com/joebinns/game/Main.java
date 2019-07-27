@@ -8,7 +8,8 @@ public class Main {
     public static void main(String[] args) {
         try {
             boolean vSync = true;
-            IGameLogic gameLogic = new DummyGame();
+            //IGameLogic gameLogic = new DummyGame();
+            IGameLogic gameLogic = new RaymarchExplorer();
             GameEngine gameEng = new GameEngine("GAME", 600, 480, vSync, gameLogic);
             gameEng.start();
         } catch (Exception excp) {
